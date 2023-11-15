@@ -3,16 +3,19 @@ resource "kubernetes_manifest" "grafana_application" {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
-      name      = "grafana"
+      name      = "kube-prometheus-stack"
       namespace = "argocd"
     }
     spec = {
       project = "default"
       source = {
-        repoURL  = "https://github.com/idog1980/dlai.git"
-        path     = "my-repo/dataloopAi/environment/staging/gcp/apps/grafana"
-        targetRevision = "HEAD"
-        chart          = "grafana"
+        repoURL        = "https://github.com/idog1980/dlai.git"
+        path           = "my-repo/dataloopAi/environment/staging/gcp/apps/kube-prometheus-stack"
+        targetRevision = "HEAD" 
+        chart          = "kube-prometheus-stack"
+        helm = {
+          valueFiles = ["values.yaml"]
+        }
       }
       destination = {
         server    = "https://kubernetes.default.svc"
@@ -29,4 +32,5 @@ resource "kubernetes_manifest" "grafana_application" {
       }
     }
   }
+  depends_on = [ module.gke, module.argocd ]
 }
