@@ -1,8 +1,8 @@
 module "argocd" {
-    source = "aigisuk/argocd/kubernetes"
-    insecure = true
+  source   = "aigisuk/argocd/kubernetes"
+  insecure = true
 
- depends_on = [
+  depends_on = [
     module.gke,
-  ] 
+  ]
 }

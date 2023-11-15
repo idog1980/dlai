@@ -25,14 +25,14 @@ resource "kubernetes_manifest" "nginx_argocd_application" {
       }
 
       syncOptions = [
-          "CreateNamespace=true"
-        ]
-        retry = {
-          limit = 5
-        }
-        
-        syncPeriod = "2m"
+        "CreateNamespace=true"
+      ]
+      retry = {
+        limit = 5
+      }
+
+      syncPeriod = "2m"
     }
   }
-  depends_on = [ module.gke, module.argocd ]
+  depends_on = [module.gke, module.argocd]
 }

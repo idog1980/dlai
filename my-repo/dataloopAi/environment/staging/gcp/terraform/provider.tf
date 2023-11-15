@@ -21,7 +21,7 @@ provider "kubernetes" {
 terraform {
   required_providers {
     kubernetes = {
-      source = "hashicorp/kubernetes"
+      source  = "hashicorp/kubernetes"
       version = "2.21.1"
     }
     helm = {

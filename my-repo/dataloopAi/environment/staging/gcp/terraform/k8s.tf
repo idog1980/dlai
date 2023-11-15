@@ -3,7 +3,7 @@ data "google_client_config" "default" {}
 
 ## Variables
 variable "cluster_name" {
-    default = "gke-dlai"
+  default = "gke-dlai"
 }
 variable "network" { default = "default" }
 variable "subnetwork" { default = "" }
@@ -32,7 +32,7 @@ module "gke" {
   regional                 = true
   create_service_account   = false
   remove_default_node_pool = true
-  deletion_protection = false
+  deletion_protection      = false
 
   # addons
   network_policy             = false
