@@ -1,4 +1,4 @@
-resource "kubernetes_manifest" "grafana_application" {
+resource "kubernetes_manifest" "kube-prometheus-stack" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
@@ -7,7 +7,7 @@ resource "kubernetes_manifest" "grafana_application" {
       namespace = "argocd"
     }
     spec = {
-      project = "default"
+      project = local.project_id
       source = {
         repoURL        = "https://github.com/idog1980/dlai.git"
         path           = "my-repo/dataloopAi/environment/staging/gcp/apps/kube-prometheus-stack"

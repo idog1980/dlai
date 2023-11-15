@@ -7,7 +7,7 @@ resource "kubernetes_manifest" "nginx_argocd_application" {
       namespace = "argocd"
     }
     spec = {
-      project = "default"
+      project = local.project_id
       source = {
         repoURL        = "https://github.com/idog1980/dlai.git"
         targetRevision = "HEAD"
