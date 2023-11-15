@@ -5,6 +5,10 @@ from kubernetes import client, config
 
 repo_url = "https://github.com/idog1980/dlai.git"
 
+def install_pip_k8s():
+    # Install the k8s pip module for python
+    subprocess.run(["pip", "install", "kubernetes"], check=True)
+
 def install_argo_cd():
     # Apply the argoCD installation YAML
     subprocess.run(["kubectl", "create", "namespace", "argocd"], check=True)
@@ -52,6 +56,9 @@ def create_argo_cd_application(app_name, path, namespace):
 if __name__ == "__main__":
     config.load_kube_config()  # Load kube config
 
+    # installing pip k8s
+    install_pip_k8s()
+    
     # Install argoCD
     install_argo_cd()
 
