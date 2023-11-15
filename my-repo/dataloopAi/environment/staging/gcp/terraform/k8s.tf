@@ -6,9 +6,6 @@ variable "network" { default = "default" }
 variable "subnetwork" { default = "" }
 variable "ip_range_pods" { default = "" }
 variable "ip_range_services" { default = "" }
-variable "arogcd_namespace" { default = "argocd" }
-variable "nginx_namespace" { default = "services" }
-variable "grafana_namespace" { default = "monitoring" }
 
 ## GKE Cluster
 module "gke" {
