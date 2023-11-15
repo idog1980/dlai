@@ -1,7 +1,4 @@
-## Data Sources
-data "google_client_config" "default" {}
-
-## Variables
+## Variables for he gke
 variable "cluster_name" {
   default = "gke-dlai"
 }

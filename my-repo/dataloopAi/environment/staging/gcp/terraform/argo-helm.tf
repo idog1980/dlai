@@ -3,6 +3,6 @@ module "argocd" {
   insecure = true
 
   depends_on = [
-    module.gke,
+    module.gke
   ]
 }

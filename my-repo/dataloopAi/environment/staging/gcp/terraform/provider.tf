@@ -36,3 +36,6 @@ provider "helm" {
     config_context = var.cluster_name
   }
 }
+
+## Data Sources
+data "google_client_config" "default" {}
