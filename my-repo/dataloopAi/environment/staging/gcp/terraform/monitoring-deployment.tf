@@ -11,7 +11,7 @@ resource "kubernetes_manifest" "grafana_application" {
       source = {
         repoURL        = "https://github.com/idog1980/dlai.git"
         path           = "my-repo/dataloopAi/environment/staging/gcp/apps/kube-prometheus-stack"
-        targetRevision = "HEAD" 
+        targetRevision = "HEAD"
         chart          = "kube-prometheus-stack"
         helm = {
           valueFiles = ["values.yaml"]
@@ -32,5 +32,5 @@ resource "kubernetes_manifest" "grafana_application" {
       }
     }
   }
-  depends_on = [ module.gke, module.argocd ]
+  depends_on = [module.gke, module.argocd]
 }
