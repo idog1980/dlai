@@ -1,6 +1,8 @@
 resource "time_sleep" "wait_5_min" {
   create_duration = "5m"
-  depends_on = [ module.gke ]
+  depends_on      = [
+    module.gke
+    ]
 }
 
 
