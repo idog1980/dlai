@@ -34,10 +34,31 @@ def echo_argo_cd_password():
     # Decode the base64 encoded password
     decoded_password = base64.b64decode(encoded_password).decode('utf-8')
     print(f'The Argo CD password is: {decoded_password}')
+    
+def get_argocd_server_address(namespace="argocd"):
+    # Load kubeconfig and initialize Kubernetes client
+    config.load_kube_config()
+    v1 = client.CoreV1Api()
+
+        # Get the list of services in the specified namespace
+    services = v1.list_namespaced_service(namespace)
+
+    for service in services.items:
+        if service.metadata.name == "argocd-server":
+        # Assuming LoadBalancer service type
+            for ingress in service.status.load_balancer.ingress:
+                return ingress.ip or ingress.hostname
+
+    return None
+
 
 def login_argo_cd(password):
+    argocd_server = get_argocd_server_address()
+    if argocd_server:
+        print(f"Argo CD Server Address: {argocd_server}")
+    print("Argo CD Server Address not found")
     # Login to Argo CD (replace ARGOCD_SERVER with your Argo CD server address)
-    subprocess.run(["argocd", "login", "ARGOCD_SERVER", "--username", "admin", "--password", password], check=True)
+    subprocess.run(["argocd", "login", argocd_server, "--username", "admin", "--password", password], check=True)
 
 def create_argo_cd_application(app_name, path, namespace):
     # Create an argoCD applications
