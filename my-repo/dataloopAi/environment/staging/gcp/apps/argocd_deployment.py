@@ -45,10 +45,7 @@ def get_argocd_server_address(namespace="argocd"):
 
     for service in services.items:
         if service.metadata.name == "argocd-server":
-        # Assuming LoadBalancer service type
-            for ingress in service.status.load_balancer.ingress:
-                return ingress.ip or ingress.hostname
-
+            return service.spec.cluster_ip
     return None
 
 
