@@ -105,7 +105,7 @@ if __name__ == "__main__":
     time.sleep(120)
 
     # Echo argoCD password
-    echo_argo_cd_password()
+    #echo_argo_cd_password()
     
     # Authenticate withargoCD
     argo_password = echo_argo_cd_password()
