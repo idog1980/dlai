@@ -29,3 +29,8 @@ Once k8s is available, under ``\dlai\my-repo\dataloopAi\environment\staging\gcp\
 1. make sure you have pip, kubectl and git installed on the environment. Since I worked on windows machine that is my personal gaming machine I didnt have those and used google dev machine to connect to it.
 2. Run ``argocd_deployment.py`` 
 3. login to ArgoCD or use kubectl to get the external IP's  
+
+
+## GKE - Application Deployment
+For Grafana import the following Dashboard:
+Kubernetes Deployment Statefulset Daemonset metrics id - 8588 
