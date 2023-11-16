@@ -26,10 +26,10 @@ def install_argo_cd_cli():
     subprocess.run(["sudo","curl", "-sSL", "https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64", "-o", "/usr/local/bin/argocd"], check=True)
     subprocess.run(["sudo", "chmod", "+x", "/usr/local/bin/argocd"], check=True)
 
-def get_argo_cd_password():
+#def get_argo_cd_password():
     # Get argoCD server password
-    password = subprocess.check_output(["kubectl", "-n", "argocd", "get", "secret", "argocd-initial-admin-secret", "-o", "jsonpath={.data.password}"], text=True)
-    return password
+#    password = subprocess.check_output(["kubectl", "-n", "argocd", "get", "secret", "argocd-initial-admin-secret", "-o", "jsonpath={.data.password}"], text=True)
+#    return password
 
 def echo_argo_cd_password():
     # Get the base64 encoded password
@@ -41,6 +41,7 @@ def echo_argo_cd_password():
     # Decode the base64 encoded password
     decoded_password = base64.b64decode(encoded_password).decode('utf-8')
     print(f'The Argo CD password is: {decoded_password}')
+    return decoded_password
     
 def get_argocd_server_address(namespace="argocd"):
     config.load_kube_config()
@@ -105,7 +106,7 @@ if __name__ == "__main__":
     echo_argo_cd_password()
     
     # Authenticate withargoCD
-    argo_password = get_argo_cd_password()
+    argo_password = echo_argo_cd_password()
     login_argo_cd(argo_password)
 
     # apps to argoCD
