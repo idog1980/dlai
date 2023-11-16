@@ -65,7 +65,9 @@ def login_argo_cd(password):
     else:
         print("Argo CD Server Address not found")
     # Login to Argo CD (replace ARGOCD_SERVER with your Argo CD server address)
-    subprocess.run(["argocd", "login", argocd_server, "--username", "admin", "--password", password], check=True)
+    argocd_port = 80
+    argocd_server_login = f"{argocd_server}:{argocd_port}"
+    subprocess.run(["argocd", "login", argocd_server_login, "--username", "admin", "--password", password, "--insecure"], check=True)
 
 def create_argo_cd_application(app_name, path, namespace):
     # Create an argoCD applications
