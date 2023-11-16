@@ -32,6 +32,6 @@ Under ``\dlai\my-repo\dataloopAi\environment\staging\gcp\apps`` there is a pytho
 3. login to ArgoCD or use kubectl to get the external IP's  
 
 
-## GKE - Application Deployment
+## Grafana Dashboard
 For Grafana import the following Dashboard:
 Kubernetes Deployment Statefulset Daemonset metrics id - 8588 
