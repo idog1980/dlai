@@ -22,6 +22,7 @@ TF files are located in ``\dlai\my-repo\dataloopAi\environment\staging\gcp``
 1. Please login to google cloud ``gcloud auth application-default login``
 2. Create a project in google cloud 
 3. Edit ``locals.tf`` with the desired zone and project_id
+4. Edit the k8s.tf as you see fit, cluster name zones , machine sizes etc.
 
 ## GKE - Application Deployment
 Once k8s is available, under ``\dlai\my-repo\dataloopAi\environment\staging\gcp\apps`` there is a python script that runs and install argoCD and add the relevant application.
