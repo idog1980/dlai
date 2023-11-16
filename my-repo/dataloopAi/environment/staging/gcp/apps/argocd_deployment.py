@@ -1,6 +1,7 @@
 import subprocess
 import base64
 import time
+import json
 from kubernetes import client, config
 
 repo_url = "https://github.com/idog1980/dlai.git"
@@ -13,6 +14,12 @@ def install_argo_cd():
     # Apply the argoCD installation YAML
     subprocess.run(["kubectl", "create", "namespace", "argocd"], check=True)
     subprocess.run(["kubectl", "apply", "-n", "argocd", "-f", "https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml"], check=True)
+
+def patching_argocd_lb():
+    patch_data = {"spec": {"type": "LoadBalancer"}}
+    patch_data_str = json.dumps(patch_data)
+    subprocess.run(["kubectl", "patch", "svc", "argocd-server", "-n", "argocd", "-p", patch_data_str])
+
 
 def install_argo_cd_cli():
     # Adjust the command according to your OS and installation method
@@ -36,16 +43,17 @@ def echo_argo_cd_password():
     print(f'The Argo CD password is: {decoded_password}')
     
 def get_argocd_server_address(namespace="argocd"):
-    # Load kubeconfig and initialize Kubernetes client
     config.load_kube_config()
     v1 = client.CoreV1Api()
 
-        # Get the list of services in the specified namespace
     services = v1.list_namespaced_service(namespace)
 
     for service in services.items:
         if service.metadata.name == "argocd-server":
-            return service.spec.cluster_ip
+            for ingress in service.status.load_balancer.ingress:
+                print(ingress.ip)
+                print(ingress.hostname)
+                return ingress.ip or ingress.hostname
     return None
 
 
@@ -53,7 +61,8 @@ def login_argo_cd(password):
     argocd_server = get_argocd_server_address()
     if argocd_server:
         print(f"Argo CD Server Address: {argocd_server}")
-    print("Argo CD Server Address not found")
+    else:
+        print("Argo CD Server Address not found")
     # Login to Argo CD (replace ARGOCD_SERVER with your Argo CD server address)
     subprocess.run(["argocd", "login", argocd_server, "--username", "admin", "--password", password], check=True)
 
@@ -76,14 +85,20 @@ if __name__ == "__main__":
 
     # installing pip k8s
     install_pip_k8s()
+    print("Installed pip kubernetes")
     
     # Install argoCD
     install_argo_cd()
+    print("Installed argoCD")
 
-    # Install argoCD CLI
     install_argo_cd_cli()
+    print("Installed argoCD CLI")
+    
+    print("waiting 1 min for argoCD to finish deploying")
+    time.sleep(60)
 
-    # Wait for argoCD components to be ready
+    print("Waiting 2 min for argoCD to patch to LoadBalancer")
+    patching_argocd_lb()
     time.sleep(120)
 
     # Echo argoCD password
