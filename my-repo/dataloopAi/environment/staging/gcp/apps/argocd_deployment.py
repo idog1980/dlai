@@ -26,11 +26,6 @@ def install_argo_cd_cli():
     subprocess.run(["sudo","curl", "-sSL", "https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64", "-o", "/usr/local/bin/argocd"], check=True)
     subprocess.run(["sudo", "chmod", "+x", "/usr/local/bin/argocd"], check=True)
 
-#def get_argo_cd_password():
-    # Get argoCD server password
-#    password = subprocess.check_output(["kubectl", "-n", "argocd", "get", "secret", "argocd-initial-admin-secret", "-o", "jsonpath={.data.password}"], text=True)
-#    return password
-
 def echo_argo_cd_password():
     # Get the base64 encoded password
     encoded_password = subprocess.check_output(
@@ -79,7 +74,6 @@ def create_argo_cd_application(app_name, path, namespace):
         "--dest-namespace", namespace,
         "--sync-policy", "automated",
         "--auto-prune",
-        "--auto-create-namespace",
         "--self-heal"
     ], check=True)
 
@@ -103,11 +97,8 @@ if __name__ == "__main__":
     print("Waiting 2 min for argoCD to patch to LoadBalancer")
     patching_argocd_lb()
     time.sleep(120)
-
-    # Echo argoCD password
-    #echo_argo_cd_password()
     
-    # Authenticate withargoCD
+    # Authenticate with argoCD
     argo_password = echo_argo_cd_password()
     login_argo_cd(argo_password)
 
