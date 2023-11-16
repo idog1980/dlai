@@ -34,5 +34,5 @@ Under ``\dlai\my-repo\dataloopAi\environment\staging\gcp\apps`` there is a pytho
 
 ## Grafana Dashboard
 For Grafana import the following Dashboard:
-Kubernetes Deployment Statefulset Daemonset metrics id - 8588 
-Nginx - 14900
+Kubernetes Deployment Statefulset Daemonset metrics id : 8588 
+Nginx : 14900
