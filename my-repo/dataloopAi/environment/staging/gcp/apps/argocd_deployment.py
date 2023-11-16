@@ -112,7 +112,11 @@ if __name__ == "__main__":
     login_argo_cd(argo_password)
 
     # apps to argoCD
-    create_argo_cd_application("nginx", repo_url, "my-repo/dataloopAi/environment/staging/gcp/apps/nginx", "services")
-    create_argo_cd_application("prometheus", repo_url, "my-repo/dataloopAi/environment/staging/gcp/apps/prometheus", "monitoring")
-    create_argo_cd_application("kube-state-metrics", repo_url, "my-repo/dataloopAi/environment/staging/gcp/apps/kube-state-metric", "kube-system")
-    create_argo_cd_application("grafana", repo_url, "my-repo/dataloopAi/environment/staging/gcp/apps/grafana", "monitoring")
+    print("creating nginx")
+    create_argo_cd_application("nginx", "my-repo/dataloopAi/environment/staging/gcp/apps/nginx", "services")
+    print("creating prometheus")
+    create_argo_cd_application("prometheus", "my-repo/dataloopAi/environment/staging/gcp/apps/prometheus", "monitoring")
+    print("creating kube-state-metrics")
+    create_argo_cd_application("kube-state-metrics", "my-repo/dataloopAi/environment/staging/gcp/apps/kube-state-metric", "kube-system")
+    print("creating grafana")
+    create_argo_cd_application("grafana", "my-repo/dataloopAi/environment/staging/gcp/apps/grafana", "monitoring")
