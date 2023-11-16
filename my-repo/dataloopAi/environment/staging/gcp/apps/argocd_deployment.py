@@ -16,8 +16,8 @@ def install_argo_cd():
 
 def install_argo_cd_cli():
     # Adjust the command according to your OS and installation method
-    subprocess.run(["curl", "-sSL", "https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64", "-o", "/usr/local/bin/argocd"], check=True)
-    subprocess.run(["chmod", "+x", "/usr/local/bin/argocd"], check=True)
+    subprocess.run(["sudo","curl", "-sSL", "https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64", "-o", "/usr/local/bin/argocd"], check=True)
+    subprocess.run(["sudo", "chmod", "+x", "/usr/local/bin/argocd"], check=True)
 
 def get_argo_cd_password():
     # Get argoCD server password
