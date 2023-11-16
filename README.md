@@ -25,7 +25,8 @@ TF files are located in ``\dlai\my-repo\dataloopAi\environment\staging\gcp``
 4. Edit the k8s.tf as you see fit, cluster name zones , machine sizes etc.
 
 ## GKE - Application Deployment
-Once k8s is available, under ``\dlai\my-repo\dataloopAi\environment\staging\gcp\apps`` there is a python script that runs and install argoCD and add the relevant application.
+Once k8s is available, clone this repo.
+Under ``\dlai\my-repo\dataloopAi\environment\staging\gcp\apps`` there is a python script that runs and install argoCD and add the relevant application.
 1. make sure you have pip, kubectl and git installed on the environment. Since I worked on windows machine that is my personal gaming machine I didnt have those and used google dev machine to connect to it.
 2. Run ``argocd_deployment.py`` 
 3. login to ArgoCD or use kubectl to get the external IP's  
